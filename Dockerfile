@@ -5,11 +5,11 @@ RUN apt-get update \
 ghostscript imagemagick inotify-tools \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /output && mkdir /input
-RUN useradd -ms /bin/bash normal
-RUN chown normal:normal /output && chown normal:normal /input
+#RUN mkdir /output && mkdir /input
+#RUN useradd -ms /bin/bash normal
+#RUN chown normal:normal /output && chown normal:normal /input
 
-USER normal
+#USER normal
 ADD script /script
 
 
