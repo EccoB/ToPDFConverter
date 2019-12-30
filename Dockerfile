@@ -3,6 +3,7 @@ MAINTAINER EccoB
 RUN apt-get update \
 && apt-get -y install \
 ghostscript imagemagick inotify-tools \
+tesseract-ocr tesseract-ocr-all \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /output && mkdir /input
