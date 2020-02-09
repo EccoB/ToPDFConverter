@@ -9,7 +9,7 @@ if [ -z ${MODUS+x} ]; then
 else 
 	echo "MODUS is set to $MODUS"; 
 fi
-
+rounds=0
 
 inotifywait -m $input -e create -e moved_to |
     while read path action file; do
@@ -17,6 +17,16 @@ inotifywait -m $input -e create -e moved_to |
 	sleep 2
 	echo "convert '$input/$file' '$output/$file.pdf'"
 	if [ "$MODUS" -eq "1" ]; then
+		while [ -s "$input/$file" ]; do
+			rounds = rounds-1
+			if [ $rounds -gt 5 ]; then
+				echo "Filesize check failed, aborting"
+				exit 1 
+			fi
+			sleep 10;
+			
+		done
+			
 		echo "Running OCR on $file"
 		tesseract "$input/$file" "$output/$file" -l $LANG pdf || \
 		( echo "Failed - wait 30s" && rm "$output/$file.pdf" && sleep 30 && tesseract "$input/$file" "$output/$file" -l $LANG pdf ) || \
