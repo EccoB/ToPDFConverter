@@ -29,8 +29,8 @@ inotifywait -m $input -e create -e moved_to |
 			
 		echo "Running OCR on $file"
 		tesseract "$input/$file" "$output/$file" -l $LANG pdf || \
-		( echo "Failed - wait 30s" && rm "$output/$file.pdf" && sleep 30 && tesseract "$input/$file" "$output/$file" -l $LANG pdf ) || \
-		( echo "Failed - wait 30s" && rm "$output/$file.pdf" && sleep 30 && tesseract "$input/$file" "$output/$file" -l $LANG pdf )
+		( echo "Failed - wait 30s" && rm "$output/$file.pdf" && sleep 30s && tesseract "$input/$file" "$output/$file" -l $LANG pdf ) || \
+		( echo "Failed - wait 30s" && rm "$output/$file.pdf" && sleep 30s && tesseract "$input/$file" "$output/$file" -l $LANG pdf )
 
 	else
 		convert "$input/$file" "$output/$file.pdf" || ( echo "Failed - wait 30s" && sleep 30 && convert "$input/$file" "$output/$file.pdf") ||  ( echo "Failed - wait 30s" && sleep 30 && convert "$input/$file" "$output/$file.pdf")
