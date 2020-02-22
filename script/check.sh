@@ -18,7 +18,7 @@ inotifywait -m $input -e create -e moved_to |
 	echo "convert '$input/$file' '$output/$file.pdf'"
 	if [ "$MODUS" -eq "1" ]; then
 		while [ -s "$input/$file" ]; do
-			rounds = rounds-1
+			rounds=$(($rounds-1))
 			if [ $rounds -gt 5 ]; then
 				echo "Filesize check failed, aborting"
 				exit 1 
