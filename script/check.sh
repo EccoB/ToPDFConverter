@@ -11,10 +11,10 @@ else
 fi
 rounds=0
 
-inotifywait -m $input -e create -e moved_to |
+inotifywait -m $input -e closed_write |
     while read path action file; do
         echo "The file '$file' appeared in directory '$path' via '$action'"
-	sleep 2
+	sleep 1
 	echo "convert '$input/$file' '$output/$file.pdf'"
 	if [ "$MODUS" -eq "1" ]; then
 		while [ -s "$input/$file" ]; do
@@ -23,7 +23,7 @@ inotifywait -m $input -e create -e moved_to |
 				echo "Filesize check failed, aborting"
 				exit 1 
 			fi
-			sleep 10;
+			sleep 1;
 			
 		done
 			
