@@ -11,6 +11,7 @@ else
 fi
 rounds=0
 
+while : ; do
 inotifywait -m $input -e close_write |
     while read path action file; do
         echo "The file '$file' appeared in directory '$path' via '$action'"
@@ -37,3 +38,5 @@ inotifywait -m $input -e close_write |
 	fi
 	#
     done
+    echo "Waiting for the next file"
+done
