@@ -11,7 +11,7 @@ else
 fi
 rounds=0
 
-inotifywait -m $input -e closed_write |
+inotifywait -m $input -e close_write |
     while read path action file; do
         echo "The file '$file' appeared in directory '$path' via '$action'"
 	sleep 1
