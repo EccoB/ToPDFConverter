@@ -17,17 +17,7 @@ inotifywait -m $input -e close_write |
         echo "The file '$file' appeared in directory '$path' via '$action'"
 	sleep 1
 	echo "convert '$input/$file' '$output/$file.pdf'"
-	if [ "$MODUS" -eq "1" ]; then
-		while [ -s "$input/$file" ]; do
-			rounds=$(($rounds-1))
-			if [ $rounds -gt 5 ]; then
-				echo "Filesize check failed, aborting"
-				exit 1 
-			fi
-			sleep 1;
-			
-		done
-			
+	if [ "$MODUS" -eq "1" ]; then	
 		echo "Running OCR on $file"
 		tesseract "$input/$file" "$output/$file" -l $LANG pdf || \
 		( echo "Failed - wait 30s" && rm "$output/$file.pdf" && sleep 30s && tesseract "$input/$file" "$output/$file" -l $LANG pdf ) || \
@@ -35,7 +25,7 @@ inotifywait -m $input -e close_write |
 
 	else
 		convert "$input/$file" "$output/$file.pdf" || ( echo "Failed - wait 30s" && sleep 30 && convert "$input/$file" "$output/$file.pdf") ||  ( echo "Failed - wait 30s" && sleep 30 && convert "$input/$file" "$output/$file.pdf")
-	fi
+	fi 
 	#
     done
     echo "Waiting for the next file"
