@@ -12,8 +12,8 @@ fi
 rounds=0
 
 while : ; do
-inotifywait -m $input -e close_write |
-    while read path action file; do
+inotifywait -m $input --format '%f' -e close_write |
+    while read file; do
         echo "The file '$file' appeared in directory '$path' via '$action'"
 	sleep 1
 	echo "convert '$input/$file' '$output/$file.pdf'"
